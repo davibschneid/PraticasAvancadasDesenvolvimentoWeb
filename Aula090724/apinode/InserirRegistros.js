@@ -1,7 +1,7 @@
 // Importar a biblioteca MongoDB
 const { MongoClient } = require('mongodb');
 
-// URL de conexão ao MongoDB
+// URL de conexï¿½o ao MongoDB
 const url = 'mongodb://127.0.0.1:27017'; // Substitua pela URL do seu MongoDB
 const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -15,18 +15,17 @@ async function main() {
 
   const db = client.db(dbName);
 
-  // Acessar uma coleção
+  // Acessar uma coleï¿½ï¿½o
   const collection = db.collection('Cadastro');
 
-  // Inserir um documento na coleção
-  //const insertResult = await collection.insertOne({ nome: 'Davi Schneid', idade: 30, cidade: 'Porto Alegre' });
-  //console.log('Documento inserido:', insertResult.insertedId);
+  const insertResult = await collection.insertOne({ nome: 'Davi', idade: 30, cidade: 'Porto Alegre' });
+  console.log('Documento inserido:', insertResult.insertedId);
 
-  // Buscar documentos na coleção
+  // Buscar documentos na coleï¿½ï¿½o
   const findResult = await collection.find({}).toArray();
   console.log('Documentos encontrados:', findResult);
 
-  // Fechar a conexão
+  // Fechar a conexï¿½o
   await client.close();
 }
 
