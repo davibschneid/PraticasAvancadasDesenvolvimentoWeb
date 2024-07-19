@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
     res.send('Hello, World!');
   });
 
-//abusca todos os usuarios  
+//busca todos os usuarios  
 app.get('/usuarios', async (req, res) => {
     const results = await db.selectUsuarios();
     res.json(results);
@@ -32,16 +32,18 @@ app.get('/usuarios/:id', async (req, res) => {
 });
 
 
-//deleta o usuario pelo ID 
-app.delete('/usuarios/:id', async (req, res) => {
+//deletar o usuario pelo ID 
+app.delete('/deletarusuario/:id', async (req, res) => {
     const results = await db.deleteUsuarioPorId(req.params.id);
-    res.json(results);
     res.sendStatus(204);
 });
 
  //insere um registro novo
-app.post('/cadastrarUsuario', async (req, res) => {
-    await db.insertUsuario(req.body);
+app.post('/cadastrarusuario', async (req, res) => {
+    const { nome, idade, cidade } = req.body;
+    const usuario = { nome: nome ,idade: idade, cidade: cidade };
+    await db.insertUsuario(usuario);
+    res.send("Cadastrado com sucesso!!!");
     res.sendStatus(201);
 });
 

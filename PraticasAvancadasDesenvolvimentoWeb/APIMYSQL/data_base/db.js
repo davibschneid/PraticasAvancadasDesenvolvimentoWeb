@@ -7,13 +7,13 @@ const client = mysql.createPool(process.env.CONNECTION_STRING);
 
 //busca todos os usuarios
 async function selectUsuarios() {
-    const res = await client.query('SELECT * FROM USUARIOS');
+    const res = await client.query('SELECT * FROM USUARIOS;');
     return res[0];
 }
  
 //busca usuario pelo ID
 async function selectUsuarioPorId(id) {
-    const res = await client.query('SELECT * FROM USUARIOS WHERE ID=?', [id]);
+    const res = await client.query('SELECT * FROM USUARIOS WHERE ID=?;', [id]);
     return res[0];
 }
 
@@ -31,7 +31,7 @@ async function insertUsuario(usuario) {
 
  //atualizar usuario
 async function updateUsuario(id, usuario) {
-    const sql = 'UPDATE USUARIOS SET nome=?, idade=?, cidade=? WHERE id=?';
+    const sql = 'UPDATE USUARIOS SET nome=?, idade=?, cidade=? WHERE id=?;';
     const values = [usuario.nome, usuario.idade, usuario.cidade, id];
     await client.query(sql, values);
 }
