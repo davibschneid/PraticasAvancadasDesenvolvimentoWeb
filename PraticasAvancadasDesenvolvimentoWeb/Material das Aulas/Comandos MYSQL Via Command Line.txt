@@ -1,0 +1,34 @@
+Comandos do MYSQL para executar via Command Line
+
+1) Mostra o databases criado no Mysql:
+show databases;
+
+2)criar um novo banco de dados no Mysql:
+CREATE DATABASE <nome do database>;
+
+3) Seleciona o banco de dados que deseja manipular:  
+use <nome do database>;
+
+4) Criar tabela no database:
+CREATE TABLE IF NOT EXISTS USUARIOS(
+	ID INT NOT NULL AUTO_INCREMENT,
+	NOME VARCHAR(255) NOT NULL,
+	IDADE INT NOT NULL,
+	CIDADE VARCHAR(150) NOT NULL,
+	PRIMARY KEY (ID)
+);
+
+5) Verificar as tabelas criadas no database
+show tables;
+
+6) Verificar as colunas criadas na tabela:
+show columns from <nome da tabela>;
+
+7) Selecionar registro por ID
+SELECT * FROM USUARIOS WHERE ID=1;
+
+8) Alterar dado na tabela, IMPORTANTE: Sempre usar a clausula WHERE.
+UPDATE USUARIOS SET NOME ="DAVI ALTERADO" WHERE ID=1;
+
+10) DELETAR dado na tabela, IMPORTANTE: Sempre usar a clausula WHERE.
+DELETE FROM USUARIOS WHERE ID=1;
