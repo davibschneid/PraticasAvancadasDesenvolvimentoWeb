@@ -43,8 +43,7 @@ app.post('/cadastrarusuario', async (req, res) => {
     const { nome, idade, cidade } = req.body;
     const usuario = { nome: nome ,idade: idade, cidade: cidade };
     await db.insertUsuario(usuario);
-    res.send("Cadastrado com sucesso!!!");
-    res.sendStatus(201);
+    res.sendStatus(200);
 });
 
 
