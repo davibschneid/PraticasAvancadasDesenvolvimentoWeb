@@ -6,7 +6,7 @@ const Usuario = require('./modelo/Usuario');
 
 const app = express();
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 
 db.sync().then(() => {
   app.listen(PORT, () => {
