@@ -15,7 +15,7 @@ db.sync().then(() => {
 });
 
 // Exemplo de uso
-app.get('/users', async (req, res) => {
+app.get('/usuarios', async (req, res) => {
    //buscar os registros inseridos
    const usuarios = await Usuario.findAll();
    console.log(usuarios);

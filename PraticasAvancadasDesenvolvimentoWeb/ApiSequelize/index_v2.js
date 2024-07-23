@@ -14,9 +14,9 @@
 
     //insere registro via Sequelize
     const resultadoCreate = await Usuario.create({
-        nome: 'REGISTRO 3',
-        idade: 3,
-        cidade: 'CIDADE 3'
+        nome: 'REGISTRO 1',
+        idade: 1,
+        cidade: 'CIDADE 1'
     })
     console.log(resultadoCreate);
 
