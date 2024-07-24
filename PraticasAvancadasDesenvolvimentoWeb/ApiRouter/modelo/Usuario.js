@@ -38,7 +38,6 @@ const Usuario = database.define('usuario', {
             const now = new Date();
             const threeHoursLater = new Date(now.getTime() - 3 * 60 * 60 * 1000);
             usuario.updatedAt = threeHoursLater;
-            console.log(`Hook beforeUpdate chamado. updatedAt: ${usuario.updatedAt}`);
           }
     }
         

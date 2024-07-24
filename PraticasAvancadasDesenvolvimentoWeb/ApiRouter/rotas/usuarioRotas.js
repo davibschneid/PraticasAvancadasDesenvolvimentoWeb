@@ -48,6 +48,66 @@ router.post('/usuarios', usuarioController.createusuario);
 
 /**
  * @swagger
+ * /buscarId/{id}:
+ *   get:
+ *     summary: Buscar registro por ID
+ *     tags: [Usuario]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID do usuário
+ *     responses:
+ *       200:
+ *         description: Buscar registro por ID
+ */
+router.get('/buscarId/:id', usuarioController.buscarId);
+
+
+
+
+
+//criar a rota buscar usuarios que contem o nome
+/**
+ * @swagger
+ * tags:
+ *   name: Usuario
+ *   description: Busca todos os usuários que contem o nome
+ */
+
+/**
+ * @swagger
+ * /buscarUsuarioPorNome/{nome}:
+ *   get:
+ *     summary: Busca todos os usuários que contem o nome
+ *     tags: [Usuario]
+ *     parameters:
+ *       - in: path
+ *         name: nome
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Nome do usuario
+ *     responses:
+ *       200:
+ *         description: Busca todos os usuários que contem o nome
+ */
+router.get('/buscarUsuarioPorNome/:nome', usuarioController.buscarUsuarioPorNome);
+
+
+
+//criar a rota buscar usuarios
+/**
+ * @swagger
+ * tags:
+ *   name: Usuario
+ *   description: Busca todos os usuários
+ */
+
+/**
+ * @swagger
  * /usuarios:
  *   get:
  *     summary: Retorna a lista de todos os usuários

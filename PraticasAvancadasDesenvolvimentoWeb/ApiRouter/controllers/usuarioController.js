@@ -2,6 +2,9 @@
 //Importa o objeto usuario
 const Usuario = require('../modelo/Usuario');
 
+//Importar para acessar os operadores do Sequelize
+const { Op } = require('sequelize');
+
 
 // Criar um novo usuário
 exports.createusuario = async (req, res) => {
@@ -44,6 +47,43 @@ exports.updateusuario = async (req, res) => {
     res.status(500).json({ error: 'Erro ao atualizar usuário' });
   }
 };
+
+
+
+// buscar por ID do usuário
+exports.buscarId = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const usuario = await Usuario.findByPk(id);
+
+    if (usuario) {
+      res.status(200).json(usuario);
+    } else {
+      res.status(404).json({ error: 'Usuário não encontrado' });
+    }
+  } catch (err) {
+    res.status(500).json({ error: 'Erro ao buscar o usuário' });
+  }
+};
+
+
+// buscar por nome de usuário
+exports.buscarUsuarioPorNome = async (req, res) => {
+  const {nome} = req.params;
+  try {
+    const usuario = await Usuario.findAll({ where: { nome: {  [Op.like]: `%${nome}%` } } });
+
+    if (usuario) {
+      res.status(200).json(usuario);
+    } else {
+      res.status(404).json({ error: 'Nenhum nome de usuário não encontrado' });
+    }
+  } catch (err) {
+    res.status(500).json({ error: 'Erro ao buscar o por nome usuário' });
+  }
+};
+
+
 
 // Deletar um usuário
 exports.deleteusuario = async (req, res) => {
