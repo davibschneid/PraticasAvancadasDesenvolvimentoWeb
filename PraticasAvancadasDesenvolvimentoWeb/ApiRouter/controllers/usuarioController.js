@@ -8,11 +8,16 @@ const { Op } = require('sequelize');
 
 // Criar um novo usuário
 exports.createusuario = async (req, res) => {
+  console.log('createusuario');
   const { nome, idade, cidade } = req.body;
+  console.log('Createusuario.Nome'+nome);
+  console.log('createusuario.Idade'+idade);
+  console.log('createusuario.Cidade'+cidade);
   try {
     const novoUsuario = await Usuario.create({ nome, idade , cidade});
     res.status(201).json(novoUsuario);
   } catch (err) {
+    console.log("Erro ao criar usuário");
     res.status(500).json({ error: 'Erro ao criar usuário' });
   }
 };
