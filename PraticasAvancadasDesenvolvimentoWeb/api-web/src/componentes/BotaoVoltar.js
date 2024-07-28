@@ -11,7 +11,7 @@ const BotaoVoltar = () => {
     };
   
     return (
-        <div>
+        <div className="button-container">
             <button onClick={handleGoBack}>
                 Voltar
             </button>
