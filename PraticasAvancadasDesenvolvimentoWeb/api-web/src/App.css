@@ -114,6 +114,41 @@
   background-color: #d32f2f;
 }
 
+.lista-registros {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.lista-registros h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.lista-registros table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.lista-registros th,
+.lista-registros td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.lista-registros th {
+  background-color: #f2f2f2;
+  text-align: left;
+}
+
+.lista-registros tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.lista-registros tr:hover {
+  background-color: #ddd;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

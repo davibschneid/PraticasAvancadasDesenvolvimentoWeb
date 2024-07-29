@@ -24,6 +24,7 @@ function Home() {
         <p>Praticas avançadas em Desenvolvimento Web.</p>
 
         <Link to="/cadastro">Acessar cadastro</Link>
+        <Link to="/lista">Listagem de cadastro</Link>
 
       </header>
 

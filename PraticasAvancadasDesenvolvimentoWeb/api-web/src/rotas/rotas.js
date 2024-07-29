@@ -10,6 +10,7 @@ import Home from '../paginas/Home';
 
 //Importa a página Cadastro
 import Cadastro from '../paginas/Cadastro';
+import ListaRegistros from '../paginas/ListaRegistros';
  
 function Rotas() {
     return (
@@ -17,6 +18,7 @@ function Rotas() {
             <Routes>
                 <Route element={<Home />} path="/" exact component={Home}/>
                 <Route element={<Cadastro />} path="/cadastro" component={Cadastro} />
+                <Route element={<ListaRegistros />} path="/lista" component={ListaRegistros} />
             </Routes>
         </BrowserRouter>
     )
