@@ -149,6 +149,32 @@
   background-color: #ddd;
 }
 
+.editar-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+  margin-left: 20px;
+}
+
+.editar-link:hover {
+  text-decoration: underline;
+}
+
+.editar-link svg {
+  margin-right: 5px; /* Espaço entre o ícone e o texto */
+}
+
+.action-column {
+  width: 10px; /* Ajuste para a largura desejada */
+  white-space: nowrap; /* Evita que o conteúdo quebre em múltiplas linhas */
+}
+
+.espaco_coluna{
+  margin: 0 20px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

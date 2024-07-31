@@ -1,6 +1,6 @@
 
 import './App.css';
-import Rotas from './rotas/rotas';
+import Rotas from './rotas/Rotas';
 
 
 function App() {
