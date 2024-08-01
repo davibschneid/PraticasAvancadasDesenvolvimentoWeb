@@ -175,6 +175,54 @@
   margin: 0 20px;
 }
 
+.inline-fields {
+  display: flex;
+  justify-content: space-between;
+}
+
+.inline-fields .field-menor {
+  flex: 1;
+  margin-right: 10px;
+  max-width: 150px; /* Ajuste a largura conforme necessário */
+}
+
+.inline-fields .field-maior {
+  flex: 2; /* O maior ocupará mais espaço */
+  margin-right: 10px;
+}
+
+.inline-fields .field-menor input,
+.inline-fields .field-maior input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.form-group {
+  flex: 1;
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select {
+  width: 35%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
