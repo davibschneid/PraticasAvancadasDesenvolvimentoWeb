@@ -14,8 +14,20 @@ function EditarRegistro() {
     const [campos, setCampos] = useState({
         nome: '',
         idade: 0,
-        cidade: ''
+        cidade: '',
+        uf:'' 
     });
+
+
+    const [estados, setEstados] = useState([]);
+
+    useEffect(() => {
+        axios.get('https://servicodados.ibge.gov.br/api/v1/localidades/estados')
+            .then(response => {
+                setEstados(response.data);
+            })
+    }, []);
+
 
   const [loading, setLoading] = useState(true);
   const [mensagem, setMensagem] = useState('');
@@ -55,6 +67,10 @@ function EditarRegistro() {
     if (!campos.cidade) {
         novosErros.cidade = 'Cidade é obrigatória';
     }
+
+    if (!campos.uf || campos.uf <= 0) {
+      novosErros.uf = 'UF é obrigatório';
+   }
 
     setErros(novosErros);
     
@@ -121,6 +137,21 @@ function EditarRegistro() {
                     <input type="text" name="cidade" id="cidade" value={campos.cidade}  onChange={handleInputChange}/>
                     {erros.cidade && <p className="error">{erros.cidade}</p>}
                 </label>
+            </div>
+
+            <div>
+              <label>UF:
+                <select name="uf" id="uf" value={campos.uf} onChange={handleInputChange}>
+                  <option value="0">Selecione uma opção</option>
+                  {estados.map(estado => (<option key={estado.sigla} value={estado.sigla}>{estado.sigla}</option>))}
+                </select>
+
+              </label>
+              <label>
+                <div>
+                  {erros.uf && <p className="error">{erros.uf}</p>}
+                </div>
+              </label>
             </div>
 
             <input type="submit" value="Salvar" />
