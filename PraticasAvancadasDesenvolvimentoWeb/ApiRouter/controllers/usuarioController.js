@@ -49,6 +49,10 @@ exports.updateusuario = async (req, res) => {
       usuario.idade = idade;
       usuario.cidade = cidade;
       usuario.uf = uf;
+      usuario.cep = cep;
+      usuario.complemento = complemento;
+      usuario.bairro = bairro;
+      usuario.numero = numero;
       usuario.updatedAt = new Date();
       await usuario.save();
       res.status(200).json(usuario);
