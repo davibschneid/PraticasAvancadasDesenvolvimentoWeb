@@ -2,12 +2,14 @@
 const express = require('express');
 const sequelize = require('./data_base/db');
 const usuariosRotas = require('./rotas/usuarioRotas');
+const uploadArquivoRotas = require('./rotas/uploadArquivoRotas');
 
 //Importar o modulo Swagger
 const setupSwagger = require('./swagger');
 
 //importar o modulo cors para receber requisicoes de diferente origem
 const cors = require('cors');
+
 
 const app = express();
 const PORT = process.env.PORT;
@@ -30,6 +32,7 @@ setupSwagger(app);
 
 app.use(express.json());
 app.use('/api', usuariosRotas);
+app.use('/api', uploadArquivoRotas);
 
 
 sequelize.sync().then(() => {
