@@ -54,8 +54,6 @@ function ListaRegistros() {
         setShowModal(false);
       });
 
-
-
         // Limpar mensagem após 3 segundos
         setTimeout(() => {
           setMensagem('');
@@ -87,6 +85,10 @@ function ListaRegistros() {
             <th>Idade</th>
             <th>Cidade</th>
             <th>UF</th>
+            <th>Cep</th>
+            <th>Complemento</th>
+            <th>Bairro</th>
+            <th>Número</th>
             <th>Editar</th>
           </tr>
         </thead>
@@ -97,6 +99,10 @@ function ListaRegistros() {
               <td>{registro.idade}</td>
               <td>{registro.cidade}</td>
               <td>{registro.uf}</td>
+              <td>{registro.cep}</td>
+              <td>{registro.complemento}</td>
+              <td>{registro.bairro}</td>
+              <td>{registro.numero}</td>
               <td class="action-column">
                 <Link to={`/editar/${registro.id}`} className="espaco_coluna">
                    <FaEdit/> Editar  {/* Ícone de edição */}
