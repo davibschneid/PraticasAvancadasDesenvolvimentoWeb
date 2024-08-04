@@ -13,6 +13,7 @@ import Cadastro from '../paginas/Cadastro';
 import CadastroCEP from '../paginas/CadastroCEP';
 import ListaRegistros from '../paginas/ListaRegistros';
 import EditarRegistro from '../paginas/EditarRegistro';
+import UploadImagem from  '../componentes/UploadImagem';
  
 function Rotas() {
     return (
@@ -23,6 +24,7 @@ function Rotas() {
                 <Route element={<CadastroCEP />} path="/cadastrocep" component={CadastroCEP} />
                 <Route element={<ListaRegistros />} path="/lista" component={ListaRegistros} />
                 <Route element={<EditarRegistro />} path="/editar/:id" component={EditarRegistro} />
+                <Route element={<UploadImagem />} path="/uploadimagem" component={UploadImagem} />
             </Routes>
         </BrowserRouter>
     )

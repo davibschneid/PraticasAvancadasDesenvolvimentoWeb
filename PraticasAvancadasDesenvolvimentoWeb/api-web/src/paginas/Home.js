@@ -1,4 +1,4 @@
-import logo from '../logo.svg';
+
 import '../App.css';
 
 //Importa o componente Header
@@ -15,16 +15,15 @@ function Home() {
   return (
     <div className="App">
       {/* Importamos o componente Header criado como HTML */}
-      <Header title="Parametro de titulo" />
+      <Header title="Programa 3 Mil Talentos" />
 
       <header className="App-header">
-
-        <img src={logo} className="App-logo" alt="logo" />
 
         <p>Praticas avançadas em Desenvolvimento Web.</p>
 
         <Link to="/cadastro">Acessar cadastro</Link>
         <Link to="/lista">Listagem de cadastro</Link>
+        <Link to="/uploadimagem">Upload de Imagem</Link>
 
       </header>
 
