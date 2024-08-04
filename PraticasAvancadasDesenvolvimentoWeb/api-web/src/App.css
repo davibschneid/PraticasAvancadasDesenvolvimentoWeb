@@ -14,14 +14,14 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  background-color: #f7f8fa;
+  min-height: 83vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: rgb(8, 8, 8);
 }
 
 .App-footer {
@@ -222,6 +222,41 @@
   box-sizing: border-box;
 }
 
+
+.form-container input[type="file"] {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.preview-image {
+  margin-top: 15px;
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.upload-progress {
+  margin-top: 20px;
+}
+
+.upload-progress progress {
+  width: 100%;
+  height: 20px;
+  border-radius: 4px;
+}
+
+.upload-progress span {
+  display: block;
+  margin-top: 5px;
+  font-size: 1em;
+  font-weight: bold;
+}
 
 @keyframes App-logo-spin {
   from {
