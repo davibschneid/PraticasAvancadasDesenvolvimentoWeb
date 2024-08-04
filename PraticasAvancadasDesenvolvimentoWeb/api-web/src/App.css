@@ -115,7 +115,7 @@
 }
 
 .lista-registros {
-  max-width: 800px;
+  flex: auto;
   margin: 0 auto;
   padding: 20px;
 }
