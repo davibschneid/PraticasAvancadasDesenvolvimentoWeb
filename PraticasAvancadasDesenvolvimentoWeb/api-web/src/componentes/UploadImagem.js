@@ -27,7 +27,7 @@ const UploadImagem = () => {
     formData.append('image', arquivoSelecionado);
 
     try {
-      const response = await axios.post('YOUR_UPLOAD_URL', formData, {
+      const response = await axios.post('http://localhost:3001/api/uploadarquivo', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -47,13 +47,13 @@ const UploadImagem = () => {
       <h2>Upload de Imagem</h2>
       <form onSubmit={handleFormSubmit}>
         <input type="file" onChange={handleFileChange} />
-        {preVisualizacao && <img src={preVisualizacao} alt="preVisualizacao" style={{ width: '200px' }} className="preview-image"/>}
+        {preVisualizacao && <img src={preVisualizacao} alt="preVisualizacao" style={{ width: '20px' }} className="preview-image"/>}
         <button type="submit" className="submit-button" >Upload</button>
       </form>
       {uploadProgress > 0 && (
         <div className="upload-progress">
           <h3>Progresso do Upload</h3>
-          <progress value={uploadProgress} max="100" />
+          <progress value={uploadProgress} max="50" />
           <span>{uploadProgress}%</span>
         </div>
       )}

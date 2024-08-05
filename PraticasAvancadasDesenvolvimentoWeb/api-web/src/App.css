@@ -235,7 +235,7 @@
 
 .preview-image {
   margin-top: 15px;
-  max-width: 100%;
+  max-width: 50%;
   height: auto;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -246,7 +246,7 @@
 }
 
 .upload-progress progress {
-  width: 100%;
+  width: 50%;
   height: 20px;
   border-radius: 4px;
 }
