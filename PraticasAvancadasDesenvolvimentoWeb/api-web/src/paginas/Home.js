@@ -23,7 +23,7 @@ function Home() {
 
         <Link to="/cadastro">Acessar cadastro</Link>
         <Link to="/lista">Listagem de cadastro</Link>
-        <Link to="/uploadimagem">Upload de Imagem</Link>
+        <Link to="/upload">Upload de arquivos</Link>
 
       </header>
 
