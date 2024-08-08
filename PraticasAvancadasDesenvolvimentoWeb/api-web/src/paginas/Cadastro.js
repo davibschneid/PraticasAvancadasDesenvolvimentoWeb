@@ -10,6 +10,9 @@ import React, { useState, useEffect } from 'react';
 
 import axios from 'axios';
 
+import axiosInstance from '../axios/configuracaoAxios';
+
+
 function Cadastro() {
 
     //cria novo estado para os campos da tela
@@ -19,9 +22,13 @@ function Cadastro() {
         cidade: '',
         uf: '',
         cep: '',
+        logradouro:'',
         complemento: '',
         bairro: '',
-        numero:0
+        numero:0,
+        email: '',
+        senha: '',
+        confirmarsenha:''
     });
 
     const [estados, setEstados] = useState([]);
@@ -85,6 +92,20 @@ function Cadastro() {
             novosErros.logradouro = 'Logradouro é obrigatório';
         }
 
+        if (!campos.email) {
+            novosErros.email = 'E-mail é obrigatório';
+        }
+
+        if (!campos.senha) {
+            novosErros.senha = 'Senha é obrigatório';
+        }
+
+        if (!campos.confirmarsenha) {
+            novosErros.confirmarsenha = 'Confirmar Senha é obrigatório';
+        }else if (campos.confirmarsenha!==campos.senha) {
+            novosErros.senha = 'Senha e Confirmar Senha devem ser iguais!';
+        }
+
         if (!campos.cep) {
             novosErros.cep = 'CEP é obrigatório';
         } else if (campos.cep.replace(/\D/g, '').length !== 8) {
@@ -97,6 +118,16 @@ function Cadastro() {
     }
 
 
+    function validaConfirmacaoSenha(){
+        const novosErros = {};
+        if (!campos.confirmarsenha) {
+            novosErros.confirmarsenha = 'Confirmar Senha é obrigatório';
+        }else if (campos.confirmarsenha!==campos.senha) {
+            novosErros.confirmarsenha = 'Senha e Confirmar Senha devem ser iguais!';
+        }
+        setErros(novosErros);
+    }
+
     function handleFormSubmit(event) {
 
         event.preventDefault();
@@ -107,7 +138,7 @@ function Cadastro() {
 
         console.log('Submetendo:', campos);
 
-        axios.post('http://localhost:3001/api/usuarios', campos)
+        axiosInstance.post('/usuarios', campos)
             .then(response => {
                 setMensagem('Formulário enviado com sucesso!');
                 console.log(response.data);
@@ -119,9 +150,13 @@ function Cadastro() {
                     cidade: '',
                     uf: '',
                     cep: '',
+                    logradouro:'',
                     complemento: '',
                     bairro: '',
-                    numero:0
+                    numero:0,
+                    email: '',
+                    senha: '',
+                    confirmarsenha:''
                 });
 
                 // Limpar mensagem após 3 segundos
@@ -186,6 +221,32 @@ function Cadastro() {
                                 </label>
                             </div>
                         </div>
+
+
+
+                        <div className="inline-fields">
+                            <div className="field-maior">
+                                <label>E-mail:
+                                    <input type="text" name="email" id="nomemaile" value={campos.email} onChange={handleInputChange} />
+                                    {erros.email && <p className="error">{erros.email}</p>}
+                                </label>
+                            </div>
+
+                            <div className="field-menor">
+                                <label>Senha:
+                                    <input type="password" name="senha" id="senha" value={campos.senha} onChange={handleInputChange} />
+                                    {erros.senha && <p className="error">{erros.senha}</p>}
+                                </label>
+                            </div>
+
+                            <div className="field-menor">
+                                <label>Confirmar Senha:
+                                    <input type="password" name="confirmarsenha" id="confirmarsenha" value={campos.confirmarsenha} onChange={handleInputChange} onBlur={validaConfirmacaoSenha}/>
+                                    {erros.confirmarsenha && <p className="error">{erros.confirmarsenha}</p>}
+                                </label>
+                            </div>
+                        </div>
+
 
                         <div className="inline-fields">
                             <div className="field-menor">
