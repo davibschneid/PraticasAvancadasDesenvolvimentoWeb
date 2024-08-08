@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import axiosInstance from '../axios/configuracaoAxios';
 import { useParams, useNavigate } from 'react-router-dom';
 
 import Header from '../Header';
@@ -17,9 +18,11 @@ function EditarRegistro() {
     cidade: '',
     uf: '',
     cep: '',
+    logradouro:'',
     complemento: '',
     bairro: '',
-    numero: 0
+    numero:0,
+    email: ''
   });
 
 
@@ -39,7 +42,7 @@ function EditarRegistro() {
   const [erros, setErros] = useState({});
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/api/buscarId/${id}`)
+    axiosInstance.get(`http://localhost:3001/api/buscarId/${id}`)
       .then(response => {
         setCampos(response.data);
         setLoading(false);
@@ -97,6 +100,11 @@ function EditarRegistro() {
       novosErros.logradouro = 'Logradouro é obrigatório';
     }
 
+
+    if (!campos.email) {
+      novosErros.email = 'E-mail é obrigatório';
+    }
+
     if (!campos.cep) {
       novosErros.cep = 'CEP é obrigatório';
     } else if (campos.cep.replace(/\D/g, '').length !== 8) {
@@ -108,6 +116,8 @@ function EditarRegistro() {
     return Object.keys(novosErros).length === 0;
   }
 
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -115,7 +125,7 @@ function EditarRegistro() {
       return;
     }
 
-    axios.put(`http://localhost:3001/api/usuarios/${id}`, campos)
+    axiosInstance.put(`http://localhost:3001/api/usuarios/${id}`, campos)
       .then(response => {
         setMensagem('Dados editados com sucesso!');
 
@@ -205,6 +215,31 @@ function EditarRegistro() {
                 </label>
               </div>
             </div>
+
+
+            <div className="inline-fields">
+              <div className="field-maior">
+                <label>E-mail:
+                  <input type="text" name="email" id="nomemaile" value={campos.email} onChange={handleInputChange} />
+                  {erros.email && <p className="error">{erros.email}</p>}
+                </label>
+              </div>
+
+              <div className="field-menor">
+                <label>Senha:
+                  <input type="password" name="senha" id="senha" value={campos.senha} disabled onChange={handleInputChange} />
+                  {erros.senha && <p className="error">{erros.senha}</p>}
+                </label>
+              </div>
+
+              <div className="field-menor">
+                <label>Confirmar Senha:
+                  <input type="password" name="confirmarsenha" id="confirmarsenha" value={campos.confirmarsenha} disabled onChange={handleInputChange}  />
+                  {erros.confirmarsenha && <p className="error">{erros.confirmarsenha}</p>}
+                </label>
+              </div>
+            </div>
+
 
             <div className="inline-fields">
               <div className="field-maior">

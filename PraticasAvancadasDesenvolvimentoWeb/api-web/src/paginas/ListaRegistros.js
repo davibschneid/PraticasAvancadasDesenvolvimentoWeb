@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import axiosInstance from '../axios/configuracaoAxios';
 import BotaoVoltar from '../componentes/BotaoVoltar';
 import { Link } from 'react-router-dom';
 
@@ -24,7 +25,7 @@ function ListaRegistros() {
   const [mensagem, setMensagem] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:3001/api/usuarios')
+    axiosInstance.get('http://localhost:3001/api/usuarios')
       .then(response => {
         setRegistros(response.data);
         setLoading(false);
@@ -43,7 +44,7 @@ function ListaRegistros() {
 
 
   const confirmDelete = () => {
-    axios.delete(`http://localhost:3001/api/usuarios/${selectedId}`)
+    axiosInstance.delete(`http://localhost:3001/api/usuarios/${selectedId}`)
       .then(response => {
         setRegistros(registros.filter(registro => registro.id !== selectedId));
         setMensagem('Registro deletado com sucesso!');
