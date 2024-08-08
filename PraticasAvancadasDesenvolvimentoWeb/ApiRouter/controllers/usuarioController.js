@@ -148,8 +148,8 @@ exports.login = async (req, res) => {
   try {
       const usuario = await Usuario.findOne({ where: { email } });
       console.log('Usuario....:',usuario);
-      if (!usuario || usuario==null) {
-          console.log('Usuario nao encontrado',usuario.email);
+      
+      if (usuario === null) {
           return res.status(400).send('Dados incorretos - cod 001!');
       }
       else{
