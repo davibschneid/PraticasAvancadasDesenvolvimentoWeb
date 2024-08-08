@@ -50,8 +50,12 @@ const Upload = () => {
       <form onSubmit={handleFormSubmit}>
         <input type="file" onChange={handleFileChange} />
         {preVisualizacao && <img src={preVisualizacao} alt="preVisualizacao" style={{ width: '100px' }} className="preview-image"/>}
-        <button type="submit" className="submit-button" >Upload</button>
+      
+        <div className="button-container">
+        <button type="submit" className="button" >Upload</button>
+        </div>
       </form>
+      <br></br>
       {uploadProgress > 0 && (
         <div className="upload-progress">
           <h3>Progresso do Upload</h3>

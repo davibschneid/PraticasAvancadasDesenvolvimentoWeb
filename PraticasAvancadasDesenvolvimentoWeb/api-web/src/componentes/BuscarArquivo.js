@@ -57,7 +57,9 @@ const BuscarArquivo = () => {
           value={id}
           onChange={(e) => setId(e.target.value)}
         />
-        <button onClick={encontrarArquivo}>Buscar</button>
+       
+        <button onClick={encontrarArquivo} className="button">Buscar</button>
+     
       </div>
       {error && <p className="error">{error}</p>}
 
