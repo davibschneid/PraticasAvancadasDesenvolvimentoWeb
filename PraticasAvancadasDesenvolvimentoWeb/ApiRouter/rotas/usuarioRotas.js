@@ -28,6 +28,24 @@ const usuarioController = require('../controllers/usuarioController');
  *                 type: integer
  *               cidade:
  *                 type: string
+ *               uf:
+ *                 type: string
+ *                 minLength: 2
+ *                 maxLength: 2
+ *               cep:
+ *                 type: string
+ *               complemento:
+ *                 type: string
+ *               bairro:
+ *                 type: string
+ *               numero:
+ *                 type: integer
+ *               email:
+ *                 type: string
+ *                 description: O email do usuário
+ *               senha:
+ *                 type: string
+ *                 description: A senha do usuário
  *     responses:
  *       201:
  *         description: Usuario criado
@@ -185,6 +203,43 @@ router.put('/usuarios/:id', usuarioController.updateusuario);
  *         description: Erro ao deletar usuário
  */
 router.delete('/usuarios/:id', usuarioController.deleteusuario);
+
+//cria a rota de login
+/**
+ * @swagger
+ * /login:
+ *   post:
+ *     summary: Autentica um usuário
+ *     tags: [Autenticação]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 description: O email do usuário
+ *               senha:
+ *                 type: string
+ *                 description: A senha do usuário
+ *     responses:
+ *       200:
+ *         description: Login bem-sucedido, retorna o token JWT
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 token:
+ *                   type: string
+ *       400:
+ *         description: Usuário não encontrado ou senha inválida
+ *       500:
+ *         description: Erro ao fazer login
+ */
+router.post('/login', usuarioController.login);
 
 
 //exporta as rotas criadas

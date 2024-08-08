@@ -29,6 +29,10 @@ const Usuario = database.define('usuario', {
     type: Sequelize.STRING,
     allowNull: true
   },
+  logradouro: {
+    type: Sequelize.STRING,
+    allowNull: true
+  },
   complemento: {
     type: Sequelize.STRING,
     allowNull: true
@@ -39,6 +43,14 @@ const Usuario = database.define('usuario', {
   },
   numero: {
     type: Sequelize.INTEGER,
+    allowNull: true
+  },
+  email: {
+    type: Sequelize.STRING,
+    allowNull: true
+  },
+  senha: {
+    type: Sequelize.STRING,
     allowNull: true
   }
 }, {
