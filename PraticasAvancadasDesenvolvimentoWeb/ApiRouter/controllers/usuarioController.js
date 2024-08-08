@@ -5,24 +5,35 @@ const Usuario = require('../modelo/Usuario');
 //Importar para acessar os operadores do Sequelize
 const { Op } = require('sequelize');
 
+//importar o modulo de criptografia
+const bcrypt = require('bcryptjs');
+
+//importar o modulo de Web Token
+const jwt = require('jsonwebtoken');
+
 
 // Criar um novo usuário
 exports.createusuario = async (req, res) => {
   console.log('createusuario');
-  const { nome, idade, cidade, uf ,cep, complemento, bairro, numero} = req.body;
+  const { nome, idade, cidade, uf ,cep, logradouro, complemento, bairro, numero, email, senha} = req.body;
   console.log('Createusuario.Nome'+nome);
   console.log('createusuario.Idade'+idade);
   console.log('createusuario.Cidade'+cidade);
   console.log('createusuario.UF'+uf);
   console.log('createusuario.CEP'+cep);
+  console.log('createusuario.Logradouro'+logradouro);
   console.log('createusuario.Complemento'+complemento);
   console.log('createusuario.Bairro'+bairro);
   console.log('createusuario.Numero'+numero);
+  console.log('createusuario.Numero'+email);
+
+  const hashedPassword = getHashedPassword(senha);
+  
   try {
-    const novoUsuario = await Usuario.create({ nome, idade , cidade, uf, cep, complemento, bairro, numero});
+    const novoUsuario = await Usuario.create({ nome, idade , cidade, uf, cep, logradouro, complemento, bairro, numero, email, senha:hashedPassword});
     res.status(201).json(novoUsuario);
   } catch (err) {
-    console.log("Erro ao criar usuário");
+    console.log("Erro ao criar usuário",err);
     res.status(500).json({ error: 'Erro ao criar usuário' });
   }
 };
@@ -40,8 +51,8 @@ exports.getusuarios = async (req, res) => {
 // Atualizar um usuário
 exports.updateusuario = async (req, res) => {
   const { id } = req.params;
-  const { nome, idade, cidade, uf, cep, complemento, bairro, numero  } = req.body;
-  console.log("updateusuario id:"+id+" - nome:"+nome+" - idade:"+idade+"- cidade:"+cidade+"- uf:"+uf+"- cep:"+cep+"- complemento:"+complemento+"- bairro:"+bairro+"- numero:"+numero);
+  const { nome, idade, cidade, uf, cep, logradouro, complemento, bairro, numero  } = req.body;
+  console.log("updateusuario id:"+id+" - nome:"+nome+" - idade:"+idade+"- cidade:"+cidade+"- uf:"+uf+"- cep:"+cep+"- logradouro:"+logradouro+"- complemento:"+complemento+"- bairro:"+bairro+"- numero:"+numero);
   try {
     const usuario = await Usuario.findByPk(id);
     if (usuario) {
@@ -50,6 +61,7 @@ exports.updateusuario = async (req, res) => {
       usuario.cidade = cidade;
       usuario.uf = uf;
       usuario.cep = cep;
+      usuario.logradouro = logradouro;
       usuario.complemento = complemento;
       usuario.bairro = bairro;
       usuario.numero = numero;
@@ -114,6 +126,47 @@ exports.deleteusuario = async (req, res) => {
     }
   } catch (err) {
     res.status(500).json({ error: 'Erro ao deletar usuário' });
+  }
+};
+
+function getHashedPassword(senha) {
+  console.log('getHashedPassword',senha);
+  // valor 10 e o valor do custo para gerar o hash
+  const salt = bcrypt.genSaltSync(10);
+  const hashedPassword = bcrypt.hashSync(senha, salt);
+  console.log('getHashedPassword.hashedPassword:',hashedPassword);
+  return hashedPassword;
+};
+
+
+// Efetua o login do usuario
+exports.login = async (req, res) => {
+
+  const { email, senha } = req.body;
+
+  console.log('login',email);
+  try {
+      const usuario = await Usuario.findOne({ where: { email } });
+      console.log('Usuario....:',usuario);
+      if (!usuario || usuario==null) {
+          console.log('Usuario nao encontrado',usuario.email);
+          return res.status(400).send('Dados incorretos - cod 001!');
+      }
+      else{
+        console.log('Usuario.email econtrado:',usuario.email);
+        const isPasswordValid = bcrypt.compareSync(senha, usuario.senha);
+
+        if (!isPasswordValid) {
+            console.log('Dados incorretos - cod 002!');
+            return res.status(400).send('Dados incorretos!');
+        }
+        const token = jwt.sign({ usuarioId: usuario.id }, process.env.JWT_KEY, { expiresIn: '10m' });
+        res.send({ token });
+    }
+  } catch (err) {
+   
+    console.log('Erro no login',err);
+      res.status(400).send('Erro no login : ' + err.message);
   }
 };
 

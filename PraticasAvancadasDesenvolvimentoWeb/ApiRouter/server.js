@@ -3,6 +3,7 @@ const express = require('express');
 const sequelize = require('./data_base/db');
 const usuariosRotas = require('./rotas/usuarioRotas');
 const uploadArquivoRotas = require('./rotas/uploadArquivoRotas');
+const validarToken = require('./rotas/tokenRotas');
 
 //Importar o modulo Swagger
 const setupSwagger = require('./swagger');
@@ -33,6 +34,7 @@ setupSwagger(app);
 app.use(express.json());
 app.use('/api', usuariosRotas);
 app.use('/api', uploadArquivoRotas);
+app.use('/api', validarToken);
 
 
 sequelize.sync().then(() => {

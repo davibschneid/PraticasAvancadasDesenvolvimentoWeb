@@ -17,7 +17,7 @@ exports.uploadarquivo = async (req, res) => {
 
     try {
       const dados = await fs.readFile(diretorioArquivo);
-      console.log('uploadarquivo.Conteudo do Arquivo:'+dados);
+     // console.log('uploadarquivo.Conteudo do Arquivo:'+dados);
 
         // Certifique-se de que dadosArquivo não é null
         if (!dados) {
