@@ -1,6 +1,7 @@
 
 
 const { enviarSMSService } = require('../service/enviarSMSService');
+const { enviarSMSBytelesignService } = require('../service/enviarSMSService');
 const { enviarEmailService } = require('../service/enviarEmailService');
 
 exports.enviarSMS = async (req, res) => {
@@ -19,6 +20,26 @@ exports.enviarSMS = async (req, res) => {
         res.status(500).json({ error: 'Erro ao enviar SMS' });
     }
 };
+
+
+exports.enviarSMSTTelesginService = async (req, res) => {
+    const { telefone , mensagem } = req.body;
+    console.log('TeleenviarSMSTTelesginServicefone:',telefone);
+    console.log('enviarSMSTTelesginService:',mensagem);
+    try{
+        if (!telefone) {
+            console.log('Retorna http 400');
+            res.status(400).json('Informar telefone');
+        }else{
+            enviarSMSBytelesignService(telefone,mensagem);
+            res.status(200).json('SMS enviado com sucesso!' );
+        }
+    }catch(err){
+        console.log('Erro ao enviar SMS',err);
+        res.status(500).json({ error: 'Erro ao enviar SMS' });
+    }
+};
+
 
 exports.enviarEmail = async (req, res) => {
     const { destinatario, assunto, mensagem } = req.body;
