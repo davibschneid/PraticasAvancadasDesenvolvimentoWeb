@@ -15,7 +15,8 @@ function Home() {
   return (
     <div className="App">
       {/* Importamos o componente Header criado como HTML */}
-      <Header title="Programa 3 Mil Talentos..." />
+
+      <Header title="Programa 3 Mil Talentos" />
 
       <header className="App-header">
 
