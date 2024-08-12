@@ -159,8 +159,10 @@ exports.login = async (req, res) => {
         if (!isPasswordValid) {
             console.log('Dados incorretos - cod 002!');
             return res.status(400).send('Dados incorretos!');
+
         }
-        const token = jwt.sign({ usuarioId: usuario.id }, process.env.JWT_KEY, { expiresIn: '10m' });
+        const token = jwt.sign({ usuarioId: usuario.id }, process.env.JWT_KEY, { expiresIn: '35m' });
+
         res.send({ token });
     }
   } catch (err) {
