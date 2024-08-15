@@ -55,7 +55,7 @@ const Login = () => {
                     />
                 </div>
                 <br></br>
-                <Link>Esqueceu a senha?</Link>
+                <Link to="/esqueci-minha-senha">Esqueceu a senha?</Link>
                 <div className="button-container">
                     <button onClick={login} className="button">Login</button>
                 </div>

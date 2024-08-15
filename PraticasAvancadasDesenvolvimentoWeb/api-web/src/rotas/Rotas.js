@@ -15,6 +15,10 @@ import Upload from  '../componentes/Upload';
 import Login from  '../paginas/Login';
 import { AuthProvider } from '../autenticacao/autenticacao';
 import PrivateRoute from '../autenticacao/rotasPrivadas';
+import EsqueciMinhaSenha from '../paginas/EsqueciMinhaSenha';
+import ResetarSenha from '../paginas/ResetarSenha';
+
+import HomeMaterials from '../paginas/HomeMaterials';
  
 function Rotas() {
     return (
@@ -23,6 +27,9 @@ function Rotas() {
             <Routes>
                 <Route path="/cadastro" element={<Cadastro />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="/esqueci-minha-senha" element={<EsqueciMinhaSenha />} />
+                <Route path="/resetar-senha/:token" element={<ResetarSenha />} />
+                <Route path="/homematerials" element={<HomeMaterials />} />
 
                 <Route path="/" element={<PrivateRoute />}>
                     <Route path="/" element={<Home />} />

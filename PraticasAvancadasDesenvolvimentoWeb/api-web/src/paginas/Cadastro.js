@@ -12,6 +12,7 @@ import axios from 'axios';
 
 import axiosInstance from '../axios/configuracaoAxios';
 
+import FullWidthTabs from './HomeMaterials'; 
 
 function Cadastro() {
 
@@ -197,6 +198,7 @@ function Cadastro() {
 
     return (
         <div className="App">
+       
             <Header title="Formulario de Cadastro" />
 
             <div className="form-container">
@@ -227,7 +229,7 @@ function Cadastro() {
                         <div className="inline-fields">
                             <div className="field-maior">
                                 <label>E-mail:
-                                    <input type="text" name="email" id="nomemaile" value={campos.email} onChange={handleInputChange} />
+                                    <input type="text" name="email" id="email" value={campos.email} onChange={handleInputChange} />
                                     {erros.email && <p className="error">{erros.email}</p>}
                                 </label>
                             </div>
