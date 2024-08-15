@@ -1,0 +1,5 @@
+{
+    "watch": ["ApiRouter/**/*.js", "ApiRouter/**/*.json"],
+    "ignore": ["node_modules"],
+    "exec": "node --inspect server.js"
+  }

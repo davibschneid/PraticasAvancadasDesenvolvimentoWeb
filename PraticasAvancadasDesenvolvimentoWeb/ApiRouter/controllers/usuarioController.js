@@ -1,4 +1,8 @@
 
+
+const axios = require('axios');
+
+const jwttoken = require('./tokenController');
 //Importa o objeto usuario
 const Usuario = require('../modelo/Usuario');
 
@@ -10,6 +14,8 @@ const bcrypt = require('bcryptjs');
 
 //importar o modulo de Web Token
 const jwt = require('jsonwebtoken');
+const EsqueciMinhaSenha = require('../modelo/EsqueciMinhaSenha');
+
 
 
 // Criar um novo usuário
@@ -37,6 +43,8 @@ exports.createusuario = async (req, res) => {
     res.status(500).json({ error: 'Erro ao criar usuário' });
   }
 };
+
+
 
 // Obter todos os usuários
 exports.getusuarios = async (req, res) => {
@@ -161,7 +169,7 @@ exports.login = async (req, res) => {
             return res.status(400).send('Dados incorretos!');
 
         }
-        const token = jwt.sign({ usuarioId: usuario.id }, process.env.JWT_KEY, { expiresIn: '35m' });
+        const token = gerarToken(usuario,'35m');
 
         res.send({ token });
     }
@@ -172,3 +180,96 @@ exports.login = async (req, res) => {
   }
 };
 
+
+
+// buscar por ID do usuário
+exports.esqueciMinhaSenha = async (req, res) => {
+  console.log('esqueciMinhaSenha');
+  const { email } = req.body;
+  try {
+    const usuario = await Usuario.findOne({ where: { email } });
+
+    if (usuario) {
+      const token = gerarToken(usuario,'10m');
+      const usuarioId = usuario.id;
+      const esqueciMinhaSenha = await EsqueciMinhaSenha.create({ usuarioId, email, token});
+      // Enviar e-mail com o link de recuperação
+      const assunto = 'Recuperar senha'
+      const resetUrl = `http://localhost:3000/resetar-senha/${esqueciMinhaSenha.token}`;
+      const mensagem = `
+          <h1>Você solicitou a redefinição de senha</h1>
+          <p>Clique no link abaixo para redefinir sua senha:</p>
+          <a href="${resetUrl}" clicktracking=off>${resetUrl}</a>
+      `;
+
+     const response = await axios.post('http://localhost:3001/api/enviaremail', {
+      destinatario: email,
+      assunto: assunto,
+      mensagem: mensagem
+    });
+
+      if (response.status === 200) {
+        console.log('E-mail de recuperação enviado com sucesso.');
+        res.status(200).json('E-mail de recuperação enviado com sucesso.');
+      }
+      else {
+        console.log('Erro ao buscar o usuário');
+        res.status(500).json({ error: 'Erro ao buscar o usuário' });
+      }
+    } else {
+      res.status(404).json({ error: 'Usuário não encontrado' });
+    }
+  } catch (err) {
+    console.log('Erro ao buscar o usuário:',err);
+    res.status(500).json({ error: 'Erro ao buscar o usuário' });
+  }
+};
+
+function gerarToken(usuario,tempoExpiracao) {
+  return jwt.sign({ usuarioId: usuario.id }, process.env.JWT_KEY, { expiresIn: tempoExpiracao });
+};
+
+
+
+// Resetar senha do usuário
+exports.resetarSenha = async (req, res) => {
+
+  const { senha } = req.body;
+  const { token } = req.body;
+  
+  try {
+    const esqueciMinhaSenha = await EsqueciMinhaSenha.findOne({ where: { token } });
+
+    if (esqueciMinhaSenha) {
+
+      try {
+        const response = await axios.post('http://localhost:3001/api/validarToken', { token: token });
+
+        if (response.status === 200) {
+          console.log('Token valido.......:');
+          const usuario = await Usuario.findByPk(esqueciMinhaSenha.usuarioId);
+          if (usuario) {
+            const hashedPassword = getHashedPassword(senha);
+            usuario.updatedAt = new Date();
+            usuario.senha = hashedPassword;
+            await usuario.save();
+            res.status(200).json('Senha alterada com sucesso');
+          }
+        }
+        else {
+          console.log('Token invalido');
+          res.status(500).json({ error: 'Token invalido' });
+        }
+
+      } catch (erro) {
+        res.status(401).json({ error: 'Token invalido'});
+      }
+    } else {
+      console.log('Dados não encontrados');
+      res.status(401).json({ error: 'Dados não encontrados' });
+    }
+  } catch (err) {
+    console.log('Erro ao resetar a senha',err);
+    res.status(500).json({ error: 'Erro ao resetar a senha' });
+  }
+};
