@@ -273,3 +273,28 @@ exports.resetarSenha = async (req, res) => {
     res.status(500).json({ error: 'Erro ao resetar a senha' });
   }
 };
+
+
+exports.buscarUsuarioComEsqueciMinhaSenhaPorId = async (req, res) => {
+  const { usuarioId } = req.params; // Obtém o usuarioId dos parâmetros da requisição
+
+  try {
+    const usuario = await Usuario.findOne({
+      where: { id: usuarioId },
+      include: [
+        {
+          model: EsqueciMinhaSenha,
+        }
+      ]
+    });
+
+    if (!usuario) {
+      return res.status(404).json({ message: 'Usuário não encontrado' });
+    }
+
+    res.status(200).json(usuario); // Retorna o usuário encontrado e os dados associados
+  } catch (error) {
+    console.error('Erro ao buscar o usuário com EsqueciMinhaSenha:', error);
+    res.status(500).json({ message: 'Erro interno do servidor' });
+  }
+};
