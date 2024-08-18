@@ -297,4 +297,5 @@ exports.buscarUsuarioComEsqueciMinhaSenhaPorId = async (req, res) => {
     console.error('Erro ao buscar o usuário com EsqueciMinhaSenha:', error);
     res.status(500).json({ message: 'Erro interno do servidor' });
   }
+
 };
