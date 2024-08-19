@@ -17,6 +17,7 @@ import { AuthProvider } from '../autenticacao/autenticacao';
 import PrivateRoute from '../autenticacao/rotasPrivadas';
 import EsqueciMinhaSenha from '../paginas/EsqueciMinhaSenha';
 import ResetarSenha from '../paginas/ResetarSenha';
+import GoogleCallback from '../componentes/GoogleCallback';
 
 import HomeMaterials from '../paginas/HomeMaterials';
  
@@ -27,12 +28,14 @@ function Rotas() {
             <Routes>
                 <Route path="/cadastro" element={<Cadastro />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="/" element={<Login />} />
+                <Route path="/auth/google/callback" element={<GoogleCallback />} /> 
                 <Route path="/esqueci-minha-senha" element={<EsqueciMinhaSenha />} />
                 <Route path="/resetar-senha/:token" element={<ResetarSenha />} />
                 <Route path="/homematerials" element={<HomeMaterials />} />
 
-                <Route path="/" element={<PrivateRoute />}>
-                    <Route path="/" element={<Home />} />
+                <Route path="/home" element={<PrivateRoute />}>
+                    <Route path="/home" element={<Home />} />
                 </Route>   
 
                 <Route path="/lista" element={<PrivateRoute />}>

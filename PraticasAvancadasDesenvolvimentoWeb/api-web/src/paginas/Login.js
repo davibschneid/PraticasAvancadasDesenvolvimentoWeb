@@ -1,39 +1,39 @@
-
 import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
-//Importa o recurso para criar link do react
-import {Link} from 'react-router-dom';
-
-import '../CSS/login.css'; // Importando o arquivo CSS
-
-//Utilizado para armazenar o token no localStorage ou sessionStorage após o login
+import { Link } from 'react-router-dom';
+import '../CSS/login.css';
 import { AuthContext } from '../autenticacao/autenticacao';
+import googleIcon from '../CSS/google.png'; 
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
-    const [token, setToken] = useState('');
     const { setAuthToken } = useContext(AuthContext);
     const navigate = useNavigate();
 
-     const login = async () => {
+    const login = async () => {
         try {
             const response = await axios.post('http://localhost:3001/api/login', { email, senha });
             setAuthToken(response.data.token);
-            //localStorage.setItem('token', response.data.token); // Armazena o token
-            setToken(response.data.token);
-            navigate('/'); // Redireciona para a página interna
+            navigate('/home'); // Redireciona para a página interna
         } catch (error) {
             alert('Erro no login: ' + error.response.data);
         }
     };
+
+    // Função para redirecionar para o Google login
+    const loginWithGoogle = () => {
+        window.location.href = 'http://localhost:3001/api/auth/google';
+        const urlParams = new URLSearchParams(window.location.search);
+        console.log('urlParams', urlParams);
+    };
+
     return (
         <div className="login-container">
             <div className="login-box">
-                
                 <h1>Login</h1>
                 <div className="input-container">
                     <FontAwesomeIcon icon={faUser} className="input-icon" />
@@ -44,7 +44,7 @@ const Login = () => {
                         onChange={(e) => setEmail(e.target.value)} 
                     />
                 </div>
-                <br></br>
+                <br />
                 <div className="input-container">
                     <FontAwesomeIcon icon={faLock} className="input-icon" />
                     <input 
@@ -54,15 +54,22 @@ const Login = () => {
                         onChange={(e) => setSenha(e.target.value)} 
                     />
                 </div>
-                <br></br>
+                <br />
                 <Link to="/esqueci-minha-senha">Esqueceu a senha?</Link>
                 <div className="button-container">
                     <button onClick={login} className="button">Login</button>
                 </div>
-                <br></br>
+                <div className="button-container">
+                    <button onClick={loginWithGoogle} className="button google-button">
+                    <img src={googleIcon} style={{ width: '32px', height: '32px', marginRight: '8px' }} />   
+                        <span>Login com Google</span>
+                    </button>
+                </div>
+                <br />
                 <Link to="/cadastro">Acessar cadastro</Link>
             </div>
         </div>
     );
 };
+
 export default Login;

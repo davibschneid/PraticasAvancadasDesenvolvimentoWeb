@@ -18,14 +18,13 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         const checkToken = async () => {
             const token = localStorage.getItem('token');
-            console.log('Token',token);
             if (token) {
                 const isValid = await verificarTokenServidor(token);
                 if (isValid) {
-                    console.log('Token valido');
                     setAuthToken(token);
+                    localStorage.setItem('token', token);
+                    localStorage.setItem('@Auth:token', token);
                 } else {
-                    console.log('Remove Token');
                     localStorage.removeItem('token');
                 }
             }
@@ -35,10 +34,8 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         if (authToken) {
-            console.log('Seta o Token ',authToken);
             localStorage.setItem('@Auth:token', authToken);
         } else {
-            console.log('Remove o Token authToken',authToken);
             localStorage.removeItem('@Auth:token', authToken);
         }
     }, [authToken]);
