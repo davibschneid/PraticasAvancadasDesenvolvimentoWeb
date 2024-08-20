@@ -1,7 +1,5 @@
 
-
 const passport = require('passport');
-
 
 // Autentica o usuario no google
 exports.autenticarGoogle = (req, res, next) => {

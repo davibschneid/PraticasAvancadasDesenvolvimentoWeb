@@ -49,7 +49,14 @@ exports.createusuario = async (req, res) => {
 // Obter todos os usuários
 exports.getusuarios = async (req, res) => {
   try {
-    const usuarios = await Usuario.findAll();
+    const usuarios = await Usuario.findAll({
+      include: [
+        {
+          model: EsqueciMinhaSenha,
+          as: 'esqueci_minha_senhas', // Certifique-se de que o alias está correto
+        },
+      ],
+    });
     res.status(200).json(usuarios);
   } catch (err) {
     res.status(500).json({ error: 'Erro ao obter usuários' });
@@ -290,6 +297,15 @@ exports.buscarUsuarioComEsqueciMinhaSenhaPorId = async (req, res) => {
 
     if (!usuario) {
       return res.status(404).json({ message: 'Usuário não encontrado' });
+    }
+
+     // Verifica se o usuário tem registros no relacionamento EsqueciMinhaSenha
+     if (usuario.esqueci_minha_senhas && usuario.esqueci_minha_senhas.length > 0) {
+      usuario.esqueci_minha_senhas.forEach((registro) => {
+        console.log('Dados EsqueciMinhaSenha:', registro); // Exibe os dados no console
+      });
+    } else {
+      console.log('Nenhum registro encontrado em EsqueciMinhaSenha.');
     }
 
     res.status(200).json(usuario); // Retorna o usuário encontrado e os dados associados
