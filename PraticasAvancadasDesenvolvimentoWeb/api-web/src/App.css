@@ -259,6 +259,21 @@
   font-weight: bold;
 }
 
+
+.nav-link {
+  margin-right: 20px;
+  text-decoration: none;
+  color: white;
+  transition: color 0.3s ease, background-color 0.3s ease; /* Transição suave */
+}
+
+.nav-link:hover {
+  color: yellow; /* Cor ao passar o mouse */
+  background-color: gray; /* Fundo ao passar o mouse */
+  padding: 5px; /* Adiciona um pequeno padding para realçar o link */
+  border-radius: 5px; /* Arredonda as bordas para melhorar a aparência */
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

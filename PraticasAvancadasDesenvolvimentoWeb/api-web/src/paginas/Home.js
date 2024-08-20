@@ -20,11 +20,11 @@ function Home() {
       <header className="App-header">
 
         <p>Praticas avançadas em Desenvolvimento Web.</p>
-
-        <Link to="/cadastro">Acessar cadastro</Link>
-        <Link to="/lista">Listagem de cadastro</Link>
-        <Link to="/upload">Upload de arquivos</Link>
-
+        <nav style={{ position: 'absolute', top: '150px', left: 0, width: '100%', textAlign: 'center', padding: '10px', backgroundColor: 'black' }}>
+          <Link to="/cadastro" className="nav-link">Acessar cadastro</Link>
+          <Link to="/lista" className="nav-link">Listagem de cadastro</Link>
+          <Link to="/upload" className="nav-link">Upload de arquivos</Link>
+        </nav>
       </header>
 
        {/* Importamos o componente Footer  criado como HTML */}
