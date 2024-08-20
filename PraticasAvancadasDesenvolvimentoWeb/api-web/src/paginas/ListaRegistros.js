@@ -89,6 +89,7 @@ function ListaRegistros() {
             <th>Complemento</th>
             <th>Bairro</th>
             <th>Número</th>
+            <th>Data resete senha</th>
             <th>Editar</th>
           </tr>
         </thead>
@@ -103,6 +104,19 @@ function ListaRegistros() {
               <td>{registro.complemento}</td>
               <td>{registro.bairro}</td>
               <td>{registro.numero}</td>
+
+              <td>
+                {/* Percorre os tokens de EsqueciMinhaSenha */}
+                {registro.esqueci_minha_senhas && registro.esqueci_minha_senhas.length > 0 ? (
+                  <ul>
+                    {registro.esqueci_minha_senhas.map((esqueci, index) => (
+                      <li key={index}>{esqueci.createdAt}</li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p>Não resetou senha</p>
+                )}
+              </td>
               <td class="action-column">
                 <Link to={`/editar/${registro.id}`} className="espaco_coluna">
                    <FaEdit/> Editar
